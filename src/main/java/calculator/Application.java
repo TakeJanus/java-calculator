@@ -17,7 +17,7 @@ public class Application {
             return 0;
         }
 
-        // TODO: 다음 기능 구현(임시로 1을 반환하도록 처리)
-        return 1;
+        // 입력된 숫자 값 그대로 출력
+        return Integer.parseInt(text);
     }
 }
