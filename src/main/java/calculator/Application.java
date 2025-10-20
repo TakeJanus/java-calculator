@@ -42,11 +42,15 @@ public class Application {
 
         for (String sNum : stringNumbers) {
             if (!sNum.trim().isEmpty()) {
-                int number = Integer.parseInt(sNum.trim());
-                if (number < 0) {
-                    negativeNumbers.add(number);
+                try {
+                    int number = Integer.parseInt(sNum.trim());
+                    if (number < 0) {
+                        negativeNumbers.add(number);
+                    }
+                    numbers.add(number);
+                } catch (NumberFormatException e) {
+                    throw new IllegalArgumentException("유효하지 않은 값입니다: \"" + sNum.trim() + "\"");
                 }
-                numbers.add(number);
             }
         }
 
