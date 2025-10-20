@@ -2,8 +2,11 @@ package calculator;
 
 import camp.nextstep.edu.missionutils.Console;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class Application {
     public static void main(String[] args) {
@@ -34,11 +37,30 @@ public class Application {
             stringNumbers = text.split("[,:]");
         }
 
-        int sum = 0;
-        for (String number : stringNumbers) {
-            sum += Integer.parseInt(number.trim());
+        List<Integer> numbers = new ArrayList<>();
+        List<Integer> negativeNumbers = new ArrayList<>();
+
+        for (String sNum : stringNumbers) {
+            if (!sNum.trim().isEmpty()) {
+                int number = Integer.parseInt(sNum.trim());
+                if (number < 0) {
+                    negativeNumbers.add(number);
+                }
+                numbers.add(number);
+            }
         }
 
+        if (!negativeNumbers.isEmpty()) {
+            String negativeStr = negativeNumbers.stream()
+                    .map(String::valueOf)
+                    .collect(Collectors.joining(", "));
+            throw new IllegalArgumentException("음수는 허용되지 않습니다: " + negativeStr);
+        }
+
+        int sum = 0;
+        for (int number : numbers) {
+            sum += number;
+        }
         return sum;
     }
 
